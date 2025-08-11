@@ -1,26 +1,25 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
+    "allowImportingTsExtensions": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "lib": ["dom", "es6"],              // Include DOM and ES6 library
+    "strict": true,                     // Enable strict type-checking options
+    "jsx": "react-jsx",                // Use JSX syntax for React 17+ (with automatic JSX runtime)
+    "esModuleInterop": true,            // Enable ES module interoperability
+    "skipLibCheck": true,               // Skip type-checking of declaration files
+    "forceConsistentCasingInFileNames": true, // Ensure consistent casing in file imports
+    "baseUrl": ".",                 // Resolve modules relative to the 'src' folder
+    "paths": {
+      "@components/*": ["src/components/*"], // Configure paths for cleaner imports (optional)
+      "@features/*": ["src/features/*"],      // Example for features folder
+      "@/*": ["src/*"]
+    },
+    "types": ["node"],
+    "moduleResolution": "node",
+    "module": "esnext",
+    "target": "esnext"
   },
   "include": [
-    "src"
+    "src/**/*"  // Include all TypeScript and JSX/TSX files in the 'src' folder
   ]
 }
