@@ -10,19 +10,18 @@ const Login: React.FC = () => {
 
   const handleLogin = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
-    axios.get('http://localhost:3000/login', {
-      params: {
+    debugger
+    axios.post('http://localhost:3000/login', {
         user: {
           email: username,
           password: password,
         }
-      },
     })
       .then((response) => {
         console.log("Login response:", response);
         if (response.status === 200) {
+          localStorage.setItem("token", JSON.stringify(response.data.auth_token));
           localStorage.setItem("user", JSON.stringify(response.data.user));
-          localStorage.setItem("token", JSON.stringify(response.data.user.name));
           navigate(SPORTSFIELDS);
         }
       })
