@@ -1,14 +1,16 @@
-import React, { Suspense } from "react";
-import Dashboard from "../components/dashboard/dashboard";
+// routes/publicRoutes.tsx
+import React, { Suspense, useState } from "react";
+import Header from "../components/header";
+import { SPORTSFIELDS } from "../util/constants/routeConstant";
 
-const publicRoute: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  return(
-    <Suspense fallback={<div>Loading...</div>}>
-      <Dashboard>{children}</Dashboard>
-    </Suspense>
+const PublicRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+
+  return (
+    <>
+      <Header menuItems={[{ label: "SportsField", path: SPORTSFIELDS }]} />
+      <main>{children}</main>
+    </>
   );
 };
 
-export default publicRoute;
+export default PublicRoute;

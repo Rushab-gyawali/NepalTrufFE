@@ -1,14 +1,21 @@
 import React, { Suspense } from "react";
-import Dashboard from "../components/dashboard/dashboard";
+import Header from "../components/header";
+import { PUBLICDASHBOARD, SPORTSFIELDS } from "../util/constants/routeConstant";
+import { Navigate } from "react-router-dom";
 
-const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    return <Navigate to={PUBLICDASHBOARD} replace />;
+  }
+
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <Dashboard>{children}</Dashboard>
-    </Suspense>
-  )
+    <>
+      <Header menuItems={[{ label: "SportsField", path: SPORTSFIELDS }]} />
+      {children}
+    </>
+  );
 };
 
 export default ProtectedRoute;

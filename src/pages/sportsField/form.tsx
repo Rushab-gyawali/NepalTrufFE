@@ -4,6 +4,8 @@ import { SportsField } from './type';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { SPORTSFIELDS } from '../../util/constants/routeConstant';
+import api from '../../api/api';
+import { getAuthData } from '../../util/auth';
 
 const SportsFieldForm: React.FC = () => {
     const navigate = useNavigate();
@@ -17,6 +19,7 @@ const SportsFieldForm: React.FC = () => {
         description: "",
         image_url: "",
         is_active: true,
+        owner_id: ""
     });
 
     const handleChange = (
@@ -40,16 +43,16 @@ const SportsFieldForm: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log('Form submitted:', formData);
-        axios.post('/api/sports-fields', formData)
-            .then(response => {
-                console.log('Success:', response.data);
-                navigate(SPORTSFIELDS)
+        const { user } = getAuthData();
+        formData.owner_id = user.id
+        api.post("/sports_fields", formData)
+            .then((response) => {
+                console.log("Success:", response.data);
+                navigate(SPORTSFIELDS);
             })
-            .catch(error => {
-                console.error('Error submitting form:', error);
-            }
-        );
+            .catch((error) => {
+                console.error("Error submitting form:", error);
+            });
     };
 
     return (
@@ -67,16 +70,6 @@ const SportsFieldForm: React.FC = () => {
                     placeholder="Enter field name"
                     required
                 />
-
-                {/* <Input
-                    label="Owner ID"
-                    id="owner_id"
-                    name="owner_id"
-                    value={formData.owner_id}
-                    onChange={handleChange}
-                    placeholder="Enter owner ID"
-                    required
-                /> */}
 
                 <Input
                     label="Field Type"
@@ -105,7 +98,7 @@ const SportsFieldForm: React.FC = () => {
                     value={formData.latitude}
                     onChange={handleChange}
                     placeholder="Enter latitude"
-                    required
+                    required={false}
                 />
 
                 <Input
@@ -115,7 +108,7 @@ const SportsFieldForm: React.FC = () => {
                     value={formData.longitude}
                     onChange={handleChange}
                     placeholder="Enter longitude"
-                    required
+                    required={false}
                 />
 
                 <Input
@@ -145,7 +138,7 @@ const SportsFieldForm: React.FC = () => {
                     value={formData.image_url}
                     onChange={handleChange}
                     placeholder="Enter image URL"
-                    required
+                    required={false}
                 />
 
                 <div className="flex items-center space-x-2 mt-2">

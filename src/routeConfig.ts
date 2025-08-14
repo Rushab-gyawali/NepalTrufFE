@@ -1,40 +1,41 @@
-import React, { Component } from "react";
-import "./router/router.tsx"
+// routeConfig.ts
+import React from "react";
 import {
-  LOGIN,
+  // LOGIN,
   SPORTSFIELDS,
   EVENTS,
   BOOKINGS,
   NEWSPORTSFIELDS,
+  UPDATESPORTSFIELDS,
+  PUBLICDASHBOARD,
 } from "./util/constants/routeConstant.ts";
-import path from "path";
 
-const routesConfig = {
-  publicRoutes: [
-    {
-      path: LOGIN,
-      component: React.lazy(
-        () => import("./pages/login.tsx")
-      ),
-      protected: false,
-    }
-  ],
-  protectedRoutes: [
-    {
-      path: SPORTSFIELDS,
-      component: React.lazy(
-        () => import("./pages/sportsField/index.tsx")
-      ),
-      protected: false
-    },
-    {
-      path: NEWSPORTSFIELDS,
-      component: React.lazy(
-        () => import("./pages/sportsField/form.tsx")
-      ),
-      protected: true
-    }
-  ],
-};
+const routesConfig = [
+  // {
+  //   path: LOGIN,
+  //   component: React.lazy(() => import("./pages/login.tsx")),
+  //   protected: false,
+  // },
+  {
+    path: PUBLICDASHBOARD,
+    component: React.lazy(() => import("./pages/sportsField/publicVenueDetail.tsx")),
+    protected: false,
+  },
+  {
+    path: SPORTSFIELDS,
+    component: React.lazy(() => import("./pages/sportsField/index.tsx")),
+    protected: true,
+  },
+  {
+    path: NEWSPORTSFIELDS,
+    component: React.lazy(() => import("./pages/sportsField/form.tsx")),
+    protected: true,
+  },
+  {
+    path: `${UPDATESPORTSFIELDS}/:id`,
+    component: React.lazy(() => import("./pages/sportsField/form.tsx")),
+    protected: true,
+  }
+];
 
 export default routesConfig;

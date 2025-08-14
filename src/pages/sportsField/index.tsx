@@ -1,56 +1,30 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { CommonTable } from "../../components/common/datatable";
-import { NEWSPORTSFIELDS } from "../../util/constants/routeConstant";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import api from '../../api/api';
+import { CommonTable } from '../../components/common/datatable';
+import { NEWSPORTSFIELDS } from '../../util/constants/routeConstant';
 
-export interface SportsField {
-  id: number;
-  name: string;
-  owner_id: string;
-  field_type: string;
-  address: string;
-  latitude: string;
-  longitude: string;
-  hourly_rate: string;
-  description: string;
-  image_url: string;
-  is_active: boolean;
-  created_at: string;
-  updated_at: string;
-}
-
-interface Column<T> {
-  header: string;
-  accessor: keyof T;
-  render?: (value: T[keyof T], row: T) => React.ReactNode;
-}
-
-const columns: Column<SportsField>[] = [
-  { header: "Name", accessor: "name" },
-  { header: "Type", accessor: "field_type" },
-  { header: "Address", accessor: "address" },
-  { header: "Hourly Rate", accessor: "hourly_rate" },
+const columns = [
+  { header: 'Name', accessor: 'name' },
+  { header: 'Type', accessor: 'field_type' },
+  { header: 'Address', accessor: 'address' },
+  { header: 'Hourly Rate', accessor: 'hourly_rate' },
   {
-    header: "Active",
-    accessor: "is_active",
-    render: (value) => (value ? "Yes" : "No"),
+    header: 'Active',
+    accessor: 'is_active',
+    render: (value: boolean) => (value ? 'Yes' : 'No'),
   },
 ];
 
-const Index: React.FC = () => {
+export default function Index() {
   const navigate = useNavigate();
-  const [fields, setFields] = useState<SportsField[]>([]);
+  const [fields, setFields] = useState([]);
 
   useEffect(() => {
-    axios
-      .get<SportsField[]>("http://localhost:3000/sports_fields")
-      .then((response) => {
-        setFields(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching sports fields:", error);
-      });
+    api
+      .get('/sports_fields')
+      .then((res) => setFields(res.data))
+      .catch(console.error);
   }, []);
 
   return (
@@ -65,9 +39,11 @@ const Index: React.FC = () => {
         </button>
       </div>
 
-      <CommonTable data={fields} columns={columns} />
+      <CommonTable
+        data={fields}
+        columns={columns}
+        onDataChange={(updated) => setFields(updated)}
+      />
     </div>
   );
-};
-
-export default Index;
+}

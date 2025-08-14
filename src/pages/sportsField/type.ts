@@ -1,7 +1,7 @@
 export interface SportsField {
     // id: number;
     name: string;
-    // owner_id: string;
+    owner_id: string;
     field_type: string;
     address: string;
     latitude: string;

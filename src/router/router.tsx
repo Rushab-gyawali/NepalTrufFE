@@ -1,36 +1,28 @@
+// MainRoute.tsx
 import React, { Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import ProtectedRoute from "./protectedRoute";
-
 import routesConfig from "../routeConfig";
+import PublicRoute from "./publicRoutes";
+import ProtectedRoute from "./protectedRoute";
+import Spinner from "../components/spinner";
 
 export const MainRoute: React.FC = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Spinner/>}>
       <BrowserRouter>
         <Routes>
-          {/* Public routes */}
-          {routesConfig.publicRoutes.map((route) => (
-            <Route
-              key={route.path}
-              path={route.path}
-              element= {React.createElement(route.component)}
-            />
-          ))}
-
-          {/* Protected routes */}
-          {routesConfig.protectedRoutes.map((route) => (
-            <Route
-              key={route.path}
-              path={route.path}
-              element={
-                <ProtectedRoute>
-                  {React.createElement(route.component)}
-                </ProtectedRoute>
-              }
-            />
-          ))}
+          {routesConfig.map((route) => {
+            const Wrapper = route.protected ? ProtectedRoute : PublicRoute;
+            return (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={
+                  <Wrapper>{React.createElement(route.component)}</Wrapper>
+                }
+              />
+            );
+          })}
         </Routes>
       </BrowserRouter>
     </Suspense>
