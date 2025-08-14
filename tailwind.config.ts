@@ -5,5 +5,7 @@ module.exports = {
   theme: {
     extend: {}, // Extend default styles
   },
-  plugins: [], // Add Tailwind plugins if needed
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+  ], // Add Tailwind plugins if needed
 };
