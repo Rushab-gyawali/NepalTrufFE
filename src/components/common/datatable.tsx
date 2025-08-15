@@ -13,50 +13,47 @@ type Column<T> = {
 type CommonTableProps<T extends { id: number | string }> = {
   data: T[];
   columns: Column<T>[];
-  onDataChange?: (updatedData: T[]) => void; // optional callback when data changes
+  onDataChange?: (updatedData: T[]) => void;
+  isActionRequired?: boolean;
 };
 
 export function CommonTable<T extends { id: number | string }>({
   data,
   columns,
   onDataChange,
+  isActionRequired = false,
 }: CommonTableProps<T>) {
   const navigate = useNavigate();
-
-  // Internal state for data so we can update/delete rows
   const [tableData, setTableData] = useState<T[]>(data);
 
-  // Sync props data to internal state on prop change
   useEffect(() => {
     setTableData(data);
   }, [data]);
 
   const handleEdit = (id: number | string) => {
-    api.get(`/sports_fields/${id}`)
+    api
+      .get(`/sports_fields/${id}`)
       .then((response) => {
         if (response.status === 200) {
-          console.log(response)
           navigate(`${UPDATESPORTSFIELDS}/${id}`);
         }
       })
       .catch((error) => {
-        console.error("error:", error);
-        alert("Unable to find the Sports Field.");
-      }
-      );
+        console.error('error:', error);
+        alert('Unable to find the Sports Field.');
+      });
   };
 
   const handleDelete = async (id: number | string) => {
-    if (!window.confirm("Are you sure you want to delete this record?")) return;
-
+    if (!window.confirm('Are you sure you want to delete this record?')) return;
     try {
       await api.delete(`/sports_fields/${id}`);
       const updated = tableData.filter((row) => row.id !== id);
       setTableData(updated);
       if (onDataChange) onDataChange(updated);
     } catch (error) {
-      console.error("Failed to delete:", error);
-      alert("Failed to delete record. Please try again.");
+      console.error('Failed to delete:', error);
+      alert('Failed to delete record. Please try again.');
     }
   };
 
@@ -66,47 +63,52 @@ export function CommonTable<T extends { id: number | string }>({
         <thead className="bg-gray-100">
           <tr>
             {columns.map((col, index) => (
-              <th
-                key={index}
-                className="px-4 py-2 font-medium text-gray-700"
-              >
+              <th key={index} className="px-4 py-2 font-medium text-gray-700">
                 {col.header}
               </th>
             ))}
-            <th className="px-4 py-2 font-medium text-gray-700">Action</th>
+            {isActionRequired && (
+              <th className="px-4 py-2 font-medium text-gray-700">Action</th>
+            )}
           </tr>
         </thead>
         <tbody>
           {tableData.map((row, rowIdx) => (
             <tr key={rowIdx} className="border-t">
-              {columns.map((col) => (
-                <td key={col.accessor as string} className="px-4 py-2">
-                  {col.render
-                    ? col.render(row[col.accessor], row)
-                    : (row[col.accessor] as React.ReactNode)}
+              {columns.map((col) => {
+                const value = row[col.accessor];
+                return (
+                  <td key={String(col.accessor)} className="px-4 py-2">
+                    {col.render ? col.render(value, row) : String(value)}
+                  </td>
+                );
+              })}
+              {isActionRequired && (
+                <td className="space-x-2 px-4 py-2">
+                  <button
+                    onClick={() => handleEdit(row.id)}
+                    className="text-blue-600 hover:text-blue-800"
+                    aria-label={`Edit ${row.id}`}
+                  >
+                    <FaPen />
+                  </button>
+                  <button
+                    onClick={() => handleDelete(row.id)}
+                    className="text-red-600 hover:text-red-800"
+                    aria-label={`Delete ${row.id}`}
+                  >
+                    <FaTrash />
+                  </button>
                 </td>
-              ))}
-              <td className="space-x-2 px-4 py-2">
-                <button
-                  onClick={() => handleEdit(row.id)}
-                  className="text-blue-600 hover:text-blue-800"
-                  aria-label={`Edit ${row.id}`}
-                >
-                  <FaPen />
-                </button>
-                <button
-                  onClick={() => handleDelete(row.id)}
-                  className="text-red-600 hover:text-red-800"
-                  aria-label={`Delete ${row.id}`}
-                >
-                  <FaTrash />
-                </button>
-              </td>
+              )}
             </tr>
           ))}
           {tableData.length === 0 && (
             <tr>
-              <td colSpan={columns.length + 1} className="text-center py-4 text-gray-500">
+              <td
+                colSpan={columns.length + (isActionRequired ? 1 : 0)}
+                className="text-center py-4 text-gray-500"
+              >
                 No records found.
               </td>
             </tr>

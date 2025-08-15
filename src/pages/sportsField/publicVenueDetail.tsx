@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import api from '../../api/api';
 import CustomDatePicker from '../../components/common/datePicker';
 import { FaArrowRight, FaMapMarkerAlt } from 'react-icons/fa';
+import { getAuthData } from '../../util/auth';
 
 export interface SportsArenaType {
     id: number;
@@ -16,11 +17,14 @@ export interface SportsArenaType {
 const PublicVenueDetail: React.FC = () => {
     const [fields, setFields] = useState<SportsArenaType[]>([]);
     const [selectedField, setSelectedField] = useState<SportsArenaType | null>(null);
-    const [bookingDate, setBookingDate] = useState<Date | null>(null);
     const [startTime, setStartTime] = useState<string>('');
     const [endTime, setEndTime] = useState<string>('');
+    const [tempStartTime, setTempStartTime] = useState<string>('');
+    const [tempEndTime, setTempEndTime] = useState<string>('');
     const [isPanelOpen, setIsPanelOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+
+    const { token, user } = getAuthData();
 
     useEffect(() => {
         (async () => {
@@ -41,20 +45,52 @@ const PublicVenueDetail: React.FC = () => {
     const handleClosePanel = () => {
         setIsPanelOpen(false);
         setSelectedField(null);
-        setBookingDate(null);
+        setSelectedDate(null);
         setStartTime('');
         setEndTime('');
+        setTempStartTime('');
+        setTempEndTime('');
     };
 
-    const handleBook = () => {
-        if (!bookingDate || !startTime || !endTime) {
-            alert('Please select date and time range');
+    const handleBook = async () => {
+        if (!token) {
+            alert("Please log in to book the sports field");
             return;
         }
-        alert(
-            `Booking ${selectedField?.name} on ${bookingDate.toDateString()} from ${startTime} to ${endTime}`
-        );
-        handleClosePanel();
+
+        if (!selectedDate || !startTime || !endTime) {
+            alert("Please select a date and time range");
+            return;
+        }
+
+        try {
+            const payload = {
+                booking: {
+                    user_id: user.id,
+                    sports_field_id: selectedField?.id,
+                    start_time: new Date(`${selectedDate.toISOString().split("T")[0]}T${startTime}`).toISOString(),
+                    end_time: new Date(`${selectedDate.toISOString().split("T")[0]}T${endTime}`).toISOString(),
+                    status: "pending",
+                    payment_status: "un-paid"
+                }
+            };
+
+            const res = await api.post("/bookings", payload, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            if (res.status === 201 || res.status === 200) {
+                alert(
+                    `Booking confirmed: ${selectedField?.name} on ${selectedDate.toDateString()} from ${startTime} to ${endTime}`
+                );
+                handleClosePanel();
+            }
+        } catch (error) {
+            console.error(error);
+            alert("Booking failed. Please try again.");
+        }
     };
 
     const truncateText = (text: string, wordLimit: number) => {
@@ -73,7 +109,6 @@ const PublicVenueDetail: React.FC = () => {
                         onClick={() => handleCardClick(field)}
                     >
                         <div className="relative h-64 w-full overflow-hidden rounded-t-lg">
-                            {/* Image */}
                             <img
                                 src={
                                     field.image_url ||
@@ -83,7 +118,6 @@ const PublicVenueDetail: React.FC = () => {
                                 className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                             />
 
-                            {/* Rating badge */}
                             <div className="absolute top-2 right-2 flex items-center bg-black bg-opacity-60 rounded-full px-2 py-1 shadow-md z-10">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -100,7 +134,6 @@ const PublicVenueDetail: React.FC = () => {
                                 <span className="ml-1 text-white text-sm">{field.rating || "5.0"}</span>
                             </div>
 
-                            {/* Hover Overlay */}
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent flex flex-col justify-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                 <div className="flex justify-between items-center">
                                     <h3 className="text-white text-lg font-semibold">{field.name}</h3>
@@ -108,18 +141,13 @@ const PublicVenueDetail: React.FC = () => {
                                         Rs. {field.hourly_rate}
                                     </span>
                                 </div>
-
-                                {/* Location with map icon */}
                                 <div className="flex items-center text-gray-200 text-sm mt-1">
                                     <FaMapMarkerAlt className="text-red-400 mr-1" />
                                     <span>{field.address}</span>
                                 </div>
-
-                                {/* Truncated description */}
                                 <p className="text-gray-300 text-sm mt-2">
                                     {truncateText(field.description, 18)}
                                 </p>
-
                                 <FaArrowRight className="text-white text-2xl absolute bottom-4 right-4" />
                             </div>
                         </div>
@@ -135,10 +163,9 @@ const PublicVenueDetail: React.FC = () => {
             >
                 {selectedField && (
                     <>
-                        {/* Scrollable top content */}
                         <div className="p-6 overflow-y-auto flex-1">
                             <button
-                                className="mb-4 text-red-500 font-bold "
+                                className="mb-4 text-red-500 font-bold"
                                 onClick={handleClosePanel}
                             >
                                 Close
@@ -149,13 +176,10 @@ const PublicVenueDetail: React.FC = () => {
                                     Rs. {selectedField.hourly_rate}
                                 </span>
                             </div>
-
-                            {/* Address under name */}
                             <div className="flex items-center text-gray-700 mb-4">
                                 <FaMapMarkerAlt className="text-red-500 mr-1" />
                                 <span>{selectedField.address}</span>
                             </div>
-
                             <p className="text-slate-600 mb-4">{selectedField.description}</p>
                             <img
                                 src={
@@ -167,30 +191,27 @@ const PublicVenueDetail: React.FC = () => {
                             />
                         </div>
 
-                        {/* Fixed booking section */}
                         <div className="p-4 border-t border-gray-200 bg-white">
                             <p className="mb-1 font-semibold text-sm">Select Booking Date:</p>
                             <CustomDatePicker
                                 selectedDate={selectedDate}
                                 onChange={(date) => setSelectedDate(date)}
                             />
-
                             <p className="mt-3 mb-1 font-semibold text-sm">Select Time Range:</p>
                             <div className="flex gap-2 mb-3">
                                 <input
                                     type="time"
                                     value={startTime}
                                     onChange={(e) => setStartTime(e.target.value)}
-                                    className="border border-slate-300 rounded-md p-1 w-1/2 text-sm"
+                                    className="border border-slate-300 rounded-md p-1 w-1/3 text-sm"
                                 />
                                 <input
                                     type="time"
                                     value={endTime}
                                     onChange={(e) => setEndTime(e.target.value)}
-                                    className="border border-slate-300 rounded-md p-1 w-1/2 text-sm"
+                                    className="border border-slate-300 rounded-md p-1 w-1/3 text-sm"
                                 />
                             </div>
-
                             <button
                                 className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 text-sm"
                                 onClick={handleBook}
@@ -202,7 +223,6 @@ const PublicVenueDetail: React.FC = () => {
                 )}
             </div>
 
-            {/* Overlay */}
             {isPanelOpen && (
                 <div
                     className="fixed inset-0 bg-black bg-opacity-40 z-40"

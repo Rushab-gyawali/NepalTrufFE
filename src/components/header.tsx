@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaCalendarAlt } from "react-icons/fa";
 import LoginModal from "../pages/loginmodal";
-import { PUBLICDASHBOARD } from "../util/constants/routeConstant";
+import { BOOKINGS, PUBLICDASHBOARD } from "../util/constants/routeConstant";
 
 interface MenuItem {
   label: string;
@@ -32,13 +32,11 @@ const Header: React.FC<HeaderProps> = ({ menuItems = [] }) => {
     navigate(path);
   };
 
-  // Helper function to check if user is logged in
   const isUserLoggedIn = (): boolean => {
     return !!localStorage.getItem("token") && !!localStorage.getItem("user");
   };
 
   return (
-
     <>
       <LoginModal isOpen={isLoginOpen} onClose={() => setLoginOpen(false)} />
 
@@ -70,9 +68,17 @@ const Header: React.FC<HeaderProps> = ({ menuItems = [] }) => {
             </nav>
           </div>
 
-          <div className="flex-1 flex justify-end relative">
+          <div className="flex-1 flex justify-end items-center space-x-4 relative">
             {isUserLoggedIn() ? (
               <>
+                <button
+                  onClick={() => handleNavigation(BOOKINGS)}
+                  className="text-gray-700 hover:text-cyan-600"
+                  title="My Bookings"
+                >
+                  <FaCalendarAlt size={20} />
+                </button>
+
                 <button onClick={toggleDropdown} className="text-gray-700 hover:text-cyan-600">
                   <FaUser size={20} />
                 </button>

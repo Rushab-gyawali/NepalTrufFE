@@ -1,9 +1,7 @@
 // routeConfig.ts
 import React from "react";
 import {
-  // LOGIN,
   SPORTSFIELDS,
-  EVENTS,
   BOOKINGS,
   NEWSPORTSFIELDS,
   UPDATESPORTSFIELDS,
@@ -35,7 +33,12 @@ const routesConfig = [
     path: `${UPDATESPORTSFIELDS}/:id`,
     component: React.lazy(() => import("./pages/sportsField/form.tsx")),
     protected: true,
-  }
+  },
+  {
+    path: BOOKINGS,
+    component: React.lazy(() => import("./pages/booking/index.tsx")),
+    protected: true,
+  },  
 ];
 
 export default routesConfig;

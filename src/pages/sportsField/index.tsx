@@ -43,6 +43,7 @@ export default function Index() {
         data={fields}
         columns={columns}
         onDataChange={(updated) => setFields(updated)}
+        isActionRequired={true}
       />
     </div>
   );
