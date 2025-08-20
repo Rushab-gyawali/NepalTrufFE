@@ -190,7 +190,7 @@
 
 "@esbuild/darwin-arm64@0.24.2":
   version "0.24.2"
-  resolved "https://registry.npmjs.org/@esbuild/darwin-arm64/-/darwin-arm64-0.24.2.tgz"
+  resolved "https://registry.yarnpkg.com/@esbuild/darwin-arm64/-/darwin-arm64-0.24.2.tgz#02ae04ad8ebffd6e2ea096181b3366816b2b5936"
   integrity sha512-kj3AnYWc+CekmZnS5IPu9D+HWtUI49hbnyqk0FLEJDbzCIQt7hg7ucF1SQAilhtYpIujfaHr6O0UHlzzSPdOeA==
 
 "@esbuild/darwin-x64@0.24.2":
@@ -290,19 +290,19 @@
 
 "@esbuild/win32-x64@0.24.2":
   version "0.24.2"
-  resolved "https://registry.yarnpkg.com/@esbuild/win32-x64/-/win32-x64-0.24.2.tgz#34aa0b52d0fbb1a654b596acfa595f0c7b77a77b"
+  resolved "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.24.2.tgz"
   integrity sha512-7VTgWzgMGvup6aSqDPLiW5zHaxYJGTO4OokMjIlrCtf+VpEL+cXKtCvg723iguPYI5oaUNdS+/V7OU2gvXVWEg==
 
 "@floating-ui/core@^1.7.3":
   version "1.7.3"
-  resolved "https://registry.yarnpkg.com/@floating-ui/core/-/core-1.7.3.tgz#462d722f001e23e46d86fd2bd0d21b7693ccb8b7"
+  resolved "https://registry.npmjs.org/@floating-ui/core/-/core-1.7.3.tgz"
   integrity sha512-sGnvb5dmrJaKEZ+LDIpguvdX3bDlEllmv4/ClQ9awcmCZrlx5jQyyMWFM5kBI+EyNOCDDiKk8il0zeuX3Zlg/w==
   dependencies:
     "@floating-ui/utils" "^0.2.10"
 
 "@floating-ui/dom@^1.7.3":
   version "1.7.3"
-  resolved "https://registry.yarnpkg.com/@floating-ui/dom/-/dom-1.7.3.tgz#6174ac3409e6a064bbdf1f4bb07188ee9461f8cf"
+  resolved "https://registry.npmjs.org/@floating-ui/dom/-/dom-1.7.3.tgz"
   integrity sha512-uZA413QEpNuhtb3/iIKoYMSK07keHPYeXF02Zhd6e213j+d1NamLix/mCLxBUDW/Gx52sPH2m+chlUsyaBs/Ag==
   dependencies:
     "@floating-ui/core" "^1.7.3"
@@ -310,14 +310,14 @@
 
 "@floating-ui/react-dom@^2.1.5":
   version "2.1.5"
-  resolved "https://registry.yarnpkg.com/@floating-ui/react-dom/-/react-dom-2.1.5.tgz#d11e3726d2eb385d8cf3216348742907c1d49fcf"
+  resolved "https://registry.npmjs.org/@floating-ui/react-dom/-/react-dom-2.1.5.tgz"
   integrity sha512-HDO/1/1oH9fjj4eLgegrlH3dklZpHtUYYFiVwMUwfGvk9jWDRWqkklA2/NFScknrcNSspbV868WjXORvreDX+Q==
   dependencies:
     "@floating-ui/dom" "^1.7.3"
 
-"@floating-ui/react@^0.27.3":
+"@floating-ui/react@^0.27.15":
   version "0.27.15"
-  resolved "https://registry.yarnpkg.com/@floating-ui/react/-/react-0.27.15.tgz#1005b01e8de79ff98de9a93717bdd1bd4fcd1949"
+  resolved "https://registry.npmjs.org/@floating-ui/react/-/react-0.27.15.tgz"
   integrity sha512-0LGxhBi3BB1DwuSNQAmuaSuertFzNAerlMdPbotjTVnvPtdOs7CkrHLaev5NIXemhzDXNC0tFzuseut7cWA5mw==
   dependencies:
     "@floating-ui/react-dom" "^2.1.5"
@@ -326,7 +326,7 @@
 
 "@floating-ui/utils@^0.2.10":
   version "0.2.10"
-  resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.2.10.tgz#a2a1e3812d14525f725d011a73eceb41fef5bc1c"
+  resolved "https://registry.npmjs.org/@floating-ui/utils/-/utils-0.2.10.tgz"
   integrity sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==
 
 "@isaacs/cliui@^8.0.2":
@@ -421,7 +421,7 @@
 
 "@rollup/rollup-darwin-arm64@4.30.1":
   version "4.30.1"
-  resolved "https://registry.npmjs.org/@rollup/rollup-darwin-arm64/-/rollup-darwin-arm64-4.30.1.tgz"
+  resolved "https://registry.yarnpkg.com/@rollup/rollup-darwin-arm64/-/rollup-darwin-arm64-4.30.1.tgz#29448cb1370cf678b50743d2e392be18470abc23"
   integrity sha512-r7FQIXD7gB0WJ5mokTUgUWPl0eYIH0wnxqeSAhuIwvnnpjdVB8cRRClyKLQr7lgzjctkbp5KmswWszlwYln03Q==
 
 "@rollup/rollup-darwin-x64@4.30.1":
@@ -501,12 +501,12 @@
 
 "@rollup/rollup-win32-x64-msvc@4.30.1":
   version "4.30.1"
-  resolved "https://registry.yarnpkg.com/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.30.1.tgz#73bf1885ff052b82fbb0f82f8671f73c36e9137c"
+  resolved "https://registry.npmjs.org/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.30.1.tgz"
   integrity sha512-D6qjsXGcvhTjv0kI4fU8tUuBDF/Ueee4SVX79VfNDXZa64TfCW1Slkb6Z7O1p7vflqZjcmOVdZlqf8gvJxc6og==
 
 "@tailwindcss/line-clamp@^0.4.4":
   version "0.4.4"
-  resolved "https://registry.yarnpkg.com/@tailwindcss/line-clamp/-/line-clamp-0.4.4.tgz#767cf8e5d528a5d90c9740ca66eb079f5e87d423"
+  resolved "https://registry.npmjs.org/@tailwindcss/line-clamp/-/line-clamp-0.4.4.tgz"
   integrity sha512-5U6SY5z8N42VtrCrKlsTAA35gy2VSyYtHWCsg1H87NU1SXnEfekTVlrga9fzUDrrHcGi2Lb5KenUWb4lRQT5/g==
 
 "@types/babel__core@^7.20.5":
@@ -802,7 +802,7 @@ csstype@^3.0.2:
 
 date-fns@^4.1.0:
   version "4.1.0"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-4.1.0.tgz#64b3d83fff5aa80438f5b1a633c2e83b8a1c2d14"
+  resolved "https://registry.npmjs.org/date-fns/-/date-fns-4.1.0.tgz"
   integrity sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==
 
 debug@^4.1.0, debug@^4.3.1:
@@ -975,7 +975,7 @@ fraction.js@^4.3.7:
 
 fsevents@~2.3.2, fsevents@~2.3.3:
   version "2.3.3"
-  resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz"
+  resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.3.3.tgz#cac6407785d03675a2a5e1a5305c697b347d90d6"
   integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
 
 function-bind@^1.1.2:
@@ -1364,11 +1364,11 @@ queue-microtask@^1.2.2:
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
 
 react-datepicker@^8.4.0:
-  version "8.4.0"
-  resolved "https://registry.yarnpkg.com/react-datepicker/-/react-datepicker-8.4.0.tgz#8db0beac6282ef72d12494bd49cc5e61362a3a42"
-  integrity sha512-6nPDnj8vektWCIOy9ArS3avus9Ndsyz5XgFCJ7nBxXASSpBdSL6lG9jzNNmViPOAOPh6T5oJyGaXuMirBLECag==
+  version "8.6.0"
+  resolved "https://registry.npmjs.org/react-datepicker/-/react-datepicker-8.6.0.tgz"
+  integrity sha512-wTfsXaGwrwCTyW8TW+glxCmeD4UDgW9q8fLhQmj80A4v+vgqi9mz5d+4npT3qCc38Ivi4cLVbUcW9GS9Dhi+Ug==
   dependencies:
-    "@floating-ui/react" "^0.27.3"
+    "@floating-ui/react" "^0.27.15"
     clsx "^2.1.1"
     date-fns "^4.1.0"
 
@@ -1614,7 +1614,7 @@ supports-preserve-symlinks-flag@^1.0.0:
 
 tabbable@^6.0.0:
   version "6.2.0"
-  resolved "https://registry.yarnpkg.com/tabbable/-/tabbable-6.2.0.tgz#732fb62bc0175cfcec257330be187dcfba1f3b97"
+  resolved "https://registry.npmjs.org/tabbable/-/tabbable-6.2.0.tgz"
   integrity sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==
 
 tailwindcss@^3.4.17:
