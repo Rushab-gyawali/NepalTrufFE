@@ -1,5 +1,5 @@
 // routes/publicRoutes.tsx
-import React, { Suspense, useState } from "react";
+import React from "react";
 import Header from "../components/header";
 import { SPORTSFIELDS } from "../util/constants/routeConstant";
 
@@ -7,7 +7,7 @@ const PublicRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
   return (
     <>
-      <Header menuItems={[{ label: "SportsField", path: SPORTSFIELDS }]} />
+      <Header menuItems={[{ label: "About-us", path: SPORTSFIELDS }]} />
       <main>{children}</main>
     </>
   );

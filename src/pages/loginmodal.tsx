@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { PUBLICDASHBOARD } from "../util/constants/routeConstant";
-// import { SPORTSFIELDS } from "../util/constants/routeConstant";
 
 
 interface LoginModalProps {
@@ -16,7 +15,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
 
   const navigate = useNavigate();
 
-  if (!isOpen) return null; // Don't render modal if closed
+  if (!isOpen) return null;
 
   const handleLogin = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
@@ -29,8 +28,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
       })
       .then((response) => {
         if (response.status === 200) {
-          const token = response.headers["x-api-key"];
-          localStorage.setItem("token", token);
+          localStorage.setItem("token", response.data.token );
           localStorage.setItem("user", JSON.stringify(response.data.user));
           onClose();
           const role = response.data.user.role;
